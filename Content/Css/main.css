@@ -1,0 +1,11 @@
+html,body,ul,li{
+	margin: 0;
+	padding: 0;
+}
+body{
+	color: #626262;
+    font-family: "Segoe UI",Arial,sans-serif;
+}
+#app {
+	background: #eee;
+}
