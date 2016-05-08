@@ -1,32 +1,17 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-//var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('js/common.js');
-//var commonsPlugin =require("webpack/lib/optimize/CommonsChunkPlugin");
 var htmlWebpackPlugin=require("html-webpack-plugin");
 var path=require('path');
 
 var options = {
-    entry: {
-        index:[
-         'webpack-dev-server/client?http://localhost:3000',
-         'webpack/hot/only-dev-server',
-          __dirname + "/Scripts/entry.js"
-        ],
-        vendor:['jquery','bootstrap','react','reactDOM']
-    },
+    entry: [path.join(__dirname,'/Scripts/entry.js')],
     output: {
-        path: __dirname + '/Build/',
-        filename: 'js/[name].bundle.js',
-        chunkFilename:'js/[id].chunk.js',
-        //publicPath:"http://127.0.0.1:3000/Build/"
+        path: path.join(__dirname,'/Build/'),
+        filename: 'js/index.bundle.js',
+        //publicPath:'../'
     },
     module: {
         loaders: [ 
-            { 
-                test: /\.jsx?$/, 
-                loaders: ['react-hot','babel'],
-                include: path.join(__dirname, 'Scripts')
-            },
             { 
                 test: /\.css$/, 
                 loader: ExtractTextPlugin.extract("style","css")
@@ -53,11 +38,12 @@ var options = {
                 //比如你配置，attrs=img:src img:data-src就可以一并处理data-src引用的资源了，就像下面这样
                 test: /\.html$/,
                 loader: "html?attrs=img:src img:data-src"
+            },
+            { 
+                test: /bootstrap\/js\//,    
+                loader: 'imports?jQuery=jquery'               
             }
         ]
-    },
-    babel:{
-        presets: ['react', 'es2015'] // 要使用的编译器
     },
     resolve:{
         //自动补全识别哪些后缀
@@ -72,19 +58,15 @@ var options = {
         }
     },
     plugins:[
-        new webpack.HotModuleReplacementPlugin(),  
-        new webpack.NoErrorsPlugin(),
-        
-        // new commonsPlugin({
-        //     name:"common",
-        //     chunks:['jquery','react'],
-        //     minChunks:Infinity
-        // }),
-        //commonsPlugin,
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',   // 将公共模块提取，生成名为`vendor`bundle
-            //chunks: ['jquery','bootstrap'], //提取哪些模块共有的部分,名字为上面的vendor.
+            //chunks: ['jquery','bootstrap','react','reactDOM'], //提取哪些模块共有的部分,名字为上面的vendor.
             minChunks: Infinity // 提取至少*个模块共有的部分
+        }),
+        new webpack.DefinePlugin({
+        'environment': {
+          'HOST': JSON.stringify('/')
+        }
         }),
         // 全局依赖jQuery
         new webpack.ProvidePlugin({
@@ -112,6 +94,7 @@ var options = {
 
 if(process.env.NODE_ENV==="production"){
     options.devtool=false;
+    options.output.publicPath="../";
     options.plugins=options.plugins.concat([
         new webpack.DefinePlugin({
             'process.env':{
@@ -126,8 +109,5 @@ if(process.env.NODE_ENV==="production"){
         })
     ]);
 };
-
-if(module.hot)
-    module.hot.accept();
 
 module.exports=options;
