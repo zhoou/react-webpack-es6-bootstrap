@@ -57,6 +57,11 @@ Here is an exmaple in my project:
 ```
 
 #### webpack.config.js
+
+`webpakc.config.js` helps to load, extend and merge webpack configs.
+
+`Webpack.config.js` files are usually placed in the root directory of the project, and it is also a standard module of the Commonjs specification.
+
 #### webpack.optimize.CommonsChunkPlugin
 #### html-webpack-plugin
 #### webpack.ProvidePlugin
