@@ -68,20 +68,21 @@ Here is an exmaple in my project:
 #### extract-text-webpack-plugin
 #### webpack-dev-server
 
-## Installation and configuration
-#### Installation
+## Installation
 
 To initialize the project with all the necessary components :
 ```
 npm install
 ```
-#### run
-
+## Run
+#### dev
 Start the local dev server :
 ```
 npm run dev
 ```
-
-## Deployment
-#### dev
 #### prod
+```
+npm run build
+```
+
+
