@@ -17,7 +17,7 @@ var options = {
                 loader: ExtractTextPlugin.extract("style","css")
             },
             { 
-                test: /\.(eot|woff|woff2|svg|ttf)$/, 
+                test: /\.(eot|woff|woff2|svg|ttf|otf)|\.(eot|woff|woff2|svg|ttf|otf)\?([\w\W]*)$/,
                 loader: "file" ,
                 query : {
                         limit : 10000,
@@ -26,10 +26,10 @@ var options = {
                     }
             },
             {
-                test:/\.(jpe?g|png|gif|ico)$/,
+                test:/\.(jpg|png|gif|ico)$/,
                 loader:"url",
                 query:{
-                    limit:5120,
+                    limit:8192,
                     name:"./Content/Images/[hash:8].[name].[ext]"
                 }
             },
@@ -52,9 +52,10 @@ var options = {
         alias: {
             'react': path.join(__dirname, 'node_modules', 'react'),
             'reactDOM':path.join(__dirname, 'node_modules', 'react-dom'),
-            'jquery':path.join(__dirname,'Scripts/Lib/jquery-2.1.4.min'),
             'bootstrap':path.join(__dirname,'Scripts/Lib/bootstrap.min'),
             'Hello': '../Components/Hello.js',//后续直接 require('Hello') 即可
+            'LeftSide':'../Components/Frame/LeftSide.js',
+            'MainContent':'../Components/Frame/MainContent.js'
         }
     },
     plugins:[
@@ -63,7 +64,7 @@ var options = {
         //     //chunks: ['jquery','bootstrap','react','reactDOM'], //提取哪些模块共有的部分,名字为上面的vendor.
         //     minChunks: Infinity // 提取至少*个模块共有的部分
         // }),
-        new webpack.optimize.CommonsChunkPlugin('Scripts/common.js'),
+        new webpack.optimize.CommonsChunkPlugin('vendor', 'Scripts/vendor.bundle.js'),
         // 全局依赖jQuery
         new webpack.ProvidePlugin({
             $ : "jquery",
