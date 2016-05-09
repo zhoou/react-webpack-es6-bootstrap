@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import HelloComponents from 'Hello';
 
-require('Bootstrap/dist/css/bootstrap.min.css');
+require('../Content/css/bootstrap.min.css');
 require('../Content/css/main.css');
 
 export default class MainBody extends React.Component {

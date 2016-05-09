@@ -7,8 +7,8 @@ var options = {
     entry: [path.join(__dirname,'/Scripts/entry.js')],
     output: {
         path: path.join(__dirname,'/Build/'),
-        filename: 'js/index.bundle.js',
-        //publicPath:'../'
+        filename: 'Scripts/index.bundle.js',
+        publicPath: 'http://localhost:3000/Build/'
     },
     module: {
         loaders: [ 
@@ -58,16 +58,12 @@ var options = {
         }
     },
     plugins:[
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',   // 将公共模块提取，生成名为`vendor`bundle
-            //chunks: ['jquery','bootstrap','react','reactDOM'], //提取哪些模块共有的部分,名字为上面的vendor.
-            minChunks: Infinity // 提取至少*个模块共有的部分
-        }),
-        new webpack.DefinePlugin({
-        'environment': {
-          'HOST': JSON.stringify('/')
-        }
-        }),
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'vendor',   // 将公共模块提取，生成名为`vendor`bundle
+        //     //chunks: ['jquery','bootstrap','react','reactDOM'], //提取哪些模块共有的部分,名字为上面的vendor.
+        //     minChunks: Infinity // 提取至少*个模块共有的部分
+        // }),
+        new webpack.optimize.CommonsChunkPlugin('Scripts/common.js'),
         // 全局依赖jQuery
         new webpack.ProvidePlugin({
             $ : "jquery",
@@ -81,7 +77,7 @@ var options = {
             favicon:'./Content/Images/favicon.ico', //favicon路径
             filename:'View/index.html',    //生成的html存放路径，相对于 path
             template:'./index.html',    //html模板路径
-            chunks:['vendor','index'],  //需要引入的chunk，不配置就会引入所有页面的资源.名字来源于你的入口文件
+            //chunks:['vendor','index'],  //需要引入的chunk，不配置就会引入所有页面的资源.名字来源于你的入口文件
             inject:true,    //允许插件修改哪些内容，包括head与body
             hash:true,    //为静态资源生成hash值
             minify:{    //压缩HTML文件

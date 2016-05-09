@@ -20,7 +20,12 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+        'environment': {
+          'HOST': JSON.stringify('/')
+        }
+    }),
   ].concat(config.plugins),
 
   devtool: 'source-map',
