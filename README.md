@@ -62,12 +62,6 @@ Here is an exmaple in my project:
 
 `Webpack.config.js` files are usually placed in the root directory of the project, and it is also a standard module of the Commonjs specification.
 
-#### webpack.optimize.CommonsChunkPlugin
-#### html-webpack-plugin
-#### webpack.ProvidePlugin
-#### extract-text-webpack-plugin
-#### webpack-dev-server
-
 ## Installation
 
 To initialize the project with all the necessary components :
